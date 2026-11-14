@@ -22,6 +22,11 @@
 
 * { box-sizing: border-box; }
 
+html {
+  /* место под полосу прокрутки всегда занято: ширина страницы не прыгает */
+  scrollbar-gutter: stable;
+}
+
 html, body {
   margin: 0;
   background: var(--bg);
@@ -80,9 +85,15 @@ h1 {
 }
 
 .status {
-  min-height: 1.4em;
+  /* фиксированная высота на две строки: текст не меняет размер поля */
+  height: 2.8em;
   margin: 8px 0 0;
   font-size: 0.95rem;
+  line-height: 1.4;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .controls {

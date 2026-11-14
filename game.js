@@ -74,8 +74,8 @@
   }
 
   function setStatus(text) {
+    // Размер поля от текста не зависит: под статус зарезервирована фиксированная высота
     statusEl.textContent = text;
-    fitCanvas();
   }
 
   function canEdit() {
@@ -100,7 +100,9 @@
 
   function fitCanvas() {
     var wrap = canvas.parentElement;
-    var availW = wrap.clientWidth;
+    var cs = window.getComputedStyle(wrap);
+    // доступная ширина — без внутренних отступов контейнера
+    var availW = wrap.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     var reserved = 0;
     Array.prototype.forEach.call(wrap.children, function (el) {
       if (el !== canvas) reserved += el.offsetHeight + 8;
@@ -298,11 +300,20 @@
 
   // Поворот экрана и изменение размера окна
   var resizeQueued = false;
+  var lastWinW = window.innerWidth;
+  var lastWinH = window.innerHeight;
   function onResize() {
+    // На телефонах при прокрутке прячется адресная строка и высота окна чуть меняется.
+    // Такие мелкие изменения высоты игнорируем, чтобы поле не «дёргалось».
+    var dw = Math.abs(window.innerWidth - lastWinW);
+    var dh = Math.abs(window.innerHeight - lastWinH);
+    if (dw < 2 && dh < 120) return;
     if (resizeQueued) return;
     resizeQueued = true;
     requestAnimationFrame(function () {
       resizeQueued = false;
+      lastWinW = window.innerWidth;
+      lastWinH = window.innerHeight;
       applyLayout();
     });
   }
