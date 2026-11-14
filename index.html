@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#12202a">
+  <title>SunChi</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1>SunChi</h1>
+      <div class="levelbar">
+        <button id="prevLevel" class="icon" type="button" aria-label="Предыдущий уровень">◀</button>
+        <span id="levelLabel" class="level-label">Уровень 1 / 30</span>
+        <button id="nextLevel" class="icon" type="button" aria-label="Следующий уровень">▶</button>
+      </div>
+    </header>
+
+    <canvas id="board" width="1200" height="720" aria-label="Игровое поле"></canvas>
+
+    <p id="status" class="status" role="status"></p>
+
+    <section class="controls">
+      <div class="pad">
+        <button id="selPrev" class="pad-btn" type="button">‹ Зеркало</button>
+        <button id="rotBtn" class="pad-btn" type="button">⟳ Повернуть</button>
+        <button id="selNext" class="pad-btn" type="button">Зеркало ›</button>
+      </div>
+      <div class="actions">
+        <button id="runBtn" class="primary" type="button">Запустить луч</button>
+        <button id="resetBtn" class="secondary" type="button">Заново</button>
+      </div>
+    </section>
+
+    <p class="hint">
+      <kbd>←</kbd> <kbd>→</kbd> повернуть зеркало ·
+      <kbd>↑</kbd> <kbd>↓</kbd> выбрать зеркало ·
+      <kbd>Пробел</kbd> запустить луч ·
+      <kbd>R</kbd> заново
+    </p>
+  </main>
+
+  <!-- Порядок важен: данные, физика, окружение, персонажи, отрисовка, анимация, игра -->
+  <script src="levels.js"></script>
+  <script src="physics.js"></script>
+  <script src="environment.js"></script>
+  <script src="character.js"></script>
+  <script src="render.js"></script>
+  <script src="animation.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+:root {
+  --bg: #12202a;
+  --text: #e8ecf7;
+  --muted: #9aa6bd;
+  --accent: #ffd34d;
+  --accent-text: #1a1408;
+  --line: #3a4a5c;
+  --panel: #1b2d3a;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #eef3ee;
+    --text: #1d2233;
+    --muted: #5d6a7a;
+    --accent: #f5a623;
+    --accent-text: #1d1505;
+    --line: #c9d3c9;
+    --panel: #dfe8df;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  /* отступы под вырезы и жесты на телефонах */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 8px 12px 16px;
+  text-align: center;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.levelbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.level-label {
+  min-width: 8.5em;
+  font-weight: 600;
+}
+
+#board {
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+  cursor: pointer;
+  /* без задержки и двойного касания-зума на телефонах */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.status {
+  min-height: 1.4em;
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.pad {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 8px;
+  width: 100%;
+  max-width: 460px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 460px;
+}
+
+.actions .primary { flex: 1 1 auto; }
+
+button {
+  font: inherit;
+  min-height: 46px;            /* удобно попадать пальцем */
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+button.pad-btn {
+  padding: 8px 6px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+button.secondary,
+button.pad-btn,
+button.icon {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+button.icon {
+  min-width: 46px;
+  padding: 8px;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.hint {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.8em;
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+/* Телефоны и планшеты: клавиатурную подсказку скрываем */
+@media (pointer: coarse) {
+  .hint { display: none; }
+}
+
+/* Узкие экраны */
+@media (max-width: 520px) {
+  .wrap { padding: 6px 8px 12px; }
+  h1 { font-size: 1.25rem; }
+  .level-label { min-width: 7.5em; font-size: 0.95rem; }
+}
+
+/* Телефон в горизонтальном положении: экономим высоту */
+@media (max-height: 520px) {
+  .wrap { padding-top: 4px; }
+  .top { margin-bottom: 4px; }
+  h1 { font-size: 1.1rem; }
+  .hint, .status { display: none; }
+  button { min-height: 38px; }
+}
